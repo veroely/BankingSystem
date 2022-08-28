@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using BankingSystem.Core.Application.Interface;
 using BankingSystem.Core.Domain;
+using BankingSystem.Core.Domain.IRepository;
 using BankingSystem.Core.Services.Dto.Cuenta;
 using BankingSystem.Core.Services.Mapping;
 using BankingSystem.Core.Services.Service;

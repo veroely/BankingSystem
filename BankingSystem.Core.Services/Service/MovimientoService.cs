@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using BankingSystem.Core.Application.Interface;
-using BankingSystem.Core.Domain;
+using BankingSystem.Core.Domain.Entities;
+using BankingSystem.Core.Domain.IRepository;
 using BankingSystem.Core.Model.Entities;
 using BankingSystem.Core.Services.Dto.Movimiento;
 using System;
@@ -14,11 +15,16 @@ namespace BankingSystem.Core.Services.Service
     {
         private readonly IMovimientoRepository _movimientoRepository;
         private readonly ICuentaRepository _cuentaRepository;
+        private readonly IParametroRepository _parametroRepository;
         private readonly IMapper _mapper;
-        public MovimientoService(IMovimientoRepository movimientoRepository, ICuentaRepository cuentaRepository, IMapper mapper)
+        public MovimientoService(IMovimientoRepository movimientoRepository
+                                , ICuentaRepository cuentaRepository
+                                , IParametroRepository parametroRepository
+                                , IMapper mapper)
         {
             _movimientoRepository = movimientoRepository;
             _cuentaRepository = cuentaRepository;
+            _parametroRepository = parametroRepository;
             _mapper = mapper;
         }
 
@@ -49,7 +55,10 @@ namespace BankingSystem.Core.Services.Service
             decimal totalRetiros = retirosActual + movimiento.Valor;
 
             //Si el cupo disponible ya se cumplió no debe permitir realizar un debito y debe desplegar un mensaje “Cupo diario Excedido”
-            if (movimiento.TipoMovimiento == "RETIRO" && totalRetiros > 1000)
+            Parametro parametro = await _parametroRepository.GetParametroPorCodigo("CUPODIARIO");
+            decimal limite = parametro!= null? parametro.Valor : 0;
+
+            if (movimiento.TipoMovimiento == "RETIRO" && totalRetiros > limite)
                 throw new Exception("Cupo diario Excedido");
 
             if (movimiento.TipoMovimiento == "RETIRO")

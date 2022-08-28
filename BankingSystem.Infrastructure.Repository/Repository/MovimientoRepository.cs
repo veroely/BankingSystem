@@ -1,4 +1,5 @@
 ﻿using BankingSystem.Core.Domain;
+using BankingSystem.Core.Domain.IRepository;
 using BankingSystem.Core.Model.Entities;
 using BankingSystem.Infrastructure.Repository.Context;
 using Microsoft.EntityFrameworkCore;
@@ -7,7 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BankingSystem.Infrastructure.Repository.Implementation
+namespace BankingSystem.Infrastructure.Repository.Repository
 {
     public class MovimientoRepository: IMovimientoRepository
     {

@@ -1,10 +1,10 @@
 using BankingSystem.Core.Application.Interface;
-using BankingSystem.Core.Domain;
+using BankingSystem.Core.Domain.IRepository;
 using BankingSystem.Core.Services;
 using BankingSystem.Core.Services.Mapping;
 using BankingSystem.Core.Services.Service;
 using BankingSystem.Infrastructure.Repository.Context;
-using BankingSystem.Infrastructure.Repository.Implementation;
+using BankingSystem.Infrastructure.Repository.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -29,9 +29,10 @@ namespace BankingSystem.Presentation.WebApi
             services.AddControllersWithViews();
             services.AddDbContext<BankingSystemContext>(options=>options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddAutoMapper(typeof(MappingProfile));
-            services.AddScoped<IClientRepository, ClientRepository>(); 
+            services.AddScoped<IClientRepository, ClientRepository>();
             services.AddScoped<ICuentaRepository, CuentaRepository>();
             services.AddScoped<IMovimientoRepository, MovimientoRepository>();
+            services.AddScoped<IParametroRepository, ParametroRepository>();
             services.AddScoped<IClientService, ClientService>();
             services.AddScoped<ICuentaService, CuentaService>();
             services.AddScoped<IMovimientoService, MovimientoService>();

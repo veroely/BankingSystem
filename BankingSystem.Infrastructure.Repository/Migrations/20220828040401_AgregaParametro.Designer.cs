@@ -4,14 +4,16 @@ using BankingSystem.Infrastructure.Repository.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BankingSystem.Infrastructure.Repository.Migrations
 {
     [DbContext(typeof(BankingSystemContext))]
-    partial class BankingSystemContextModelSnapshot : ModelSnapshot
+    [Migration("20220828040401_AgregaParametro")]
+    partial class AgregaParametro
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -38,7 +40,7 @@ namespace BankingSystem.Infrastructure.Repository.Migrations
 
                     b.HasKey("IdParametro");
 
-                    b.ToTable("Parametros");
+                    b.ToTable("Parametro");
                 });
 
             modelBuilder.Entity("BankingSystem.Core.Model.Entities.Cliente", b =>

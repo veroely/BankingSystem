@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace BankingSystem.Core.Domain
+namespace BankingSystem.Core.Domain.IRepository
 {
     public interface ICuentaRepository
     {

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using BankingSystem.Core.Application.Interface;
 using BankingSystem.Core.Domain;
+using BankingSystem.Core.Domain.IRepository;
 using BankingSystem.Core.Model.Entities;
 using BankingSystem.Core.Services;
 using BankingSystem.Core.Services.Dto.Cliente;

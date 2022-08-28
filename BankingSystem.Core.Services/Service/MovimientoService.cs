@@ -108,10 +108,10 @@ namespace BankingSystem.Core.Services.Service
                 Cliente = s.Cliente,
                 NumeroCuenta = s.NumeroCuenta,
                 TipoCuenta = s.TipoCuenta,
-                SaldoInicial = s.SaldoInicial,
+                SaldoInicial = s.TipoMovimiento == "RETIRO" ? s.SaldoDisponible + s.Movimiento : s.SaldoDisponible - s.Movimiento,
                 EstadoCuenta = s.EstadoCuenta,
-                Movimiento = s.TipoMovimiento == "RETIRO" ? -s.Movimiento:s.Movimiento,
-                SaldoDisponible =s.SaldoDisponible
+                Movimiento = s.TipoMovimiento == "RETIRO" ? -s.Movimiento : s.Movimiento,
+                SaldoDisponible = s.SaldoDisponible
             }).ToList();
             return movimientoDtos;
         }

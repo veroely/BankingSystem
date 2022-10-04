@@ -17,12 +17,6 @@ namespace BankingSystem.Presentation.WebApi.Controllers
             _movimientoService = movimientoService;
         }
 
-        [HttpGet]
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
-
         [HttpGet("porClienteyCuenta")]
         public async Task<IActionResult> GetMovimientos(int idCliente, string numeroCuenta)
         {

@@ -11,6 +11,5 @@ namespace BankingSystem.Core.Domain.IRepository
         Task<Cliente> getByIdentificacion(string identificacion);
         Task addClient(Cliente cliente);
         Task updateClient(Cliente cliente);
-        Task deleteClient(int idCliente);
     }
 }

@@ -18,40 +18,42 @@ namespace BankingSystem.Infrastructure.Repository.Repository
             _context = context;
         }
 
-        public async Task addMovimiento(Movimiento movimineto)
+        public async Task addMovimiento(Movimiento movimiento)
         {
-            _context.Movimientos.Add(movimineto);
+            _context.Movimientos.Add(movimiento);
             await _context.SaveChangesAsync();
         }
 
         public async Task<List<Movimiento>> getMovimientosByIdCliente(int idCliente, string numeroCuenta)
         {
-            var response = await (from movimiento in _context.Movimientos
-                                  join cuenta in _context.Cuentas on movimiento.IdCuenta equals cuenta.IdCuenta
-                                  where cuenta.IdCliente == idCliente && cuenta.NumeroCuenta == numeroCuenta
-                                  select movimiento).ToListAsync();
+            List<Movimiento> response = await (from movimiento in _context.Movimientos
+                                               join cuenta in _context.Cuentas on movimiento.IdCuenta equals cuenta.IdCuenta
+                                               where cuenta.IdCliente == idCliente && cuenta.NumeroCuenta == numeroCuenta
+                                               select movimiento).ToListAsync();
             return response;
         }
 
         public async Task<List<ReporteMovimientosCliente>> getMovimientosPOrClienteyFecha(int idCliente, DateTime fechaDesde, DateTime fechaHasta)
         {
-            var response = await (from movimiento in _context.Movimientos
-                                  join cuenta in _context.Cuentas on movimiento.IdCuenta equals cuenta.IdCuenta
-                                  join cliente in _context.Clientes on cuenta.IdCliente equals cliente.IdCliente
-                                  where cuenta.IdCliente == idCliente
-                                     && movimiento.Fecha >= fechaDesde && movimiento.Fecha <= fechaHasta
-                                  select new ReporteMovimientosCliente
-                                  {
-                                      Fecha = movimiento.Fecha,
-                                      Cliente = cliente.Nombre,
-                                      NumeroCuenta = cuenta.NumeroCuenta,
-                                      TipoCuenta = cuenta.TipoCuenta,
-                                      EstadoCuenta = cuenta.Estado,
-                                      SaldoInicial = cuenta.SaldoDisponible,
-                                      Movimiento = movimiento.Valor,
-                                      TipoMovimiento = movimiento.TipoMovimiento,
-                                      SaldoDisponible = movimiento.Saldo
-                                  }).ToListAsync();
+            List<ReporteMovimientosCliente> response = await (from movimiento in _context.Movimientos
+                                                              join cuenta in _context.Cuentas on movimiento.IdCuenta equals cuenta.IdCuenta
+                                                              join cliente in _context.Clientes on cuenta.IdCliente equals cliente.IdCliente
+                                                              where cuenta.IdCliente == idCliente
+                                                                 && movimiento.Fecha >= fechaDesde && movimiento.Fecha <= fechaHasta
+                                                              select new ReporteMovimientosCliente
+                                                              {
+                                                                  Fecha = movimiento.Fecha,
+                                                                  Cliente = cliente.Nombre,
+                                                                  NumeroCuenta = cuenta.NumeroCuenta,
+                                                                  TipoCuenta = cuenta.TipoCuenta,
+                                                                  EstadoCuenta = cuenta.Estado,
+                                                                  SaldoInicial = cuenta.SaldoDisponible,
+                                                                  Movimiento = movimiento.Valor,
+                                                                  TipoMovimiento = movimiento.TipoMovimiento,
+                                                                  SaldoDisponible = movimiento.Saldo
+                                                              }).ToListAsync();
+
+            response = response.OrderBy(o => o.NumeroCuenta).ToList();
             return response;
         }
     }

@@ -24,10 +24,10 @@ namespace BankingSystem.Infrastructure.Repository.Repository
 
         public async Task<List<Cuenta>> getByIdCliente(int idCliente)
         {
-            var response = await(from cuenta in _context.Cuentas
-                            join cliente in _context.Clientes on cuenta.IdCliente equals cliente.IdCliente
-                            where cliente.IdCliente == idCliente
-                            select cuenta).ToListAsync();
+            List<Cuenta> response = await (from cuenta in _context.Cuentas
+                                           join cliente in _context.Clientes on cuenta.IdCliente equals cliente.IdCliente
+                                           where cliente.IdCliente == idCliente
+                                           select cuenta).ToListAsync();
 
             return response;
         }

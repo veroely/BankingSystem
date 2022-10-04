@@ -21,10 +21,6 @@ namespace BankingSystem.Infrastructure.Repository.Repository
             await _context.SaveChangesAsync();
         }
 
-        public async Task deleteClient(int idCliente)
-        {
-        }
-
         public async Task<List<Cliente>> getAll()
         {
             return await _context.Clientes.ToListAsync();
